@@ -1,45 +1,52 @@
 package com.prac.practice.Controller;
 
 
+import com.prac.practice.DTO.createproductrequestdto;
 import com.prac.practice.DTO.productresponsedto;
 import com.prac.practice.Model.products;
 import com.prac.practice.Service.Productservi;
-import com.prac.practice.Service.fakestoreservice;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.prac.practice.builder.productmapper;
+import org.springframework.web.bind.annotation.*;
+
+//import static com.prac.practice.builder.productmapper.convertproductresponsedto;
 
 @RestController
 public class productcontroller {
 
     private Productservi obj;
+    private productmapper mapper;
 
-    public productcontroller(Productservi obj){
+    public productcontroller(Productservi obj,productmapper mapper){
         this.obj = obj;
+        this.mapper = mapper;
     }
 
 
     @GetMapping("/product/{id}")
     public productresponsedto getproductbyid(@PathVariable("id") int id){
 
+        if(id<1){
+            System.out.println("id not to be null");
+            return null;
+        }
+
        products pr =  obj.getproductbyid(id);
-       productresponsedto  response =  convertproductresponsedto(pr);
+       productresponsedto  response =  mapper.convertproductresponsedto(pr);
        return response;
     }
 
-    private productresponsedto convertproductresponsedto(products pr){
-        productresponsedto dto = new productresponsedto();
-        dto.setId(pr.getId());
-        dto.setTitle(pr.getTittle());
-        dto.setDescription(pr.getDescription());
-        dto.setCategory(pr.getCategory());
+    @PostMapping ("/product")
+    public productresponsedto createproduct(@RequestBody createproductrequestdto dto){
 
-        return dto;
-    }
+        //1.valdiate request
 
-    @PostMapping ("/products")
-    public void createproduct(){
+        //2.call to service
+       products pr =  obj.createproduct(dto.getTitle(),dto.getDescription(),dto.getCategory());
 
+       //3.convert this to dto return;
+
+        return  mapper.convertproductresponsedto(pr);
+
+       // return productresponsedto;
     }
 }

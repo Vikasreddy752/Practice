@@ -16,16 +16,7 @@ public class Fakestoreproductdto {
     private String description;
     private String category;
 
-    public products toproduct(Fakestoreproductdto dto){
-        products pr = new products();
 
-        pr.setCategory(dto.getCategory());
-        pr.setId(dto.getId());
-        pr.setTittle(dto.getTitle());
-        pr.setDescription(dto.getDescription());
-
-        return pr;
-    }
    /* public products toproduct(Fakestoreproductdto dto){
         products pr = new products();
         Category cr = new Category();
