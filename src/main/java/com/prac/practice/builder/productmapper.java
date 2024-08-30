@@ -13,6 +13,7 @@ public class productmapper {
         dto.setTitle(pr.getTittle());
         dto.setDescription(pr.getDescription());
         dto.setCategory(pr.getCategory());
+        dto.setImage(pr.getImage());
 
 
         //dto.setId(pr.getId());
@@ -23,10 +24,11 @@ public class productmapper {
     public products toproduct(Fakestoreproductdto dto){
         products pr = new products();
 
-        pr.setCategory(dto.getCategory());
         pr.setId(dto.getId());
         pr.setTittle(dto.getTitle());
         pr.setDescription(dto.getDescription());
+        pr.setCategory(dto.getCategory());
+        pr.setImage(dto.getImage());
 
         return pr;
     }

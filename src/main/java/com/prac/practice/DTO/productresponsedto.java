@@ -9,5 +9,7 @@ public class productresponsedto {
     private int id;
     private String title;
     private String description;
+    private String Image;
+    private String price;
     private String category;
 }
