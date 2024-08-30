@@ -36,6 +36,7 @@ public class fakestoreservice implements  Productservi {
         if(response.getBody() == null){
             //throw exception
             System.out.print("product body is null");
+            return  null;
         }
 
         products pr = mapper.toproduct(dto);

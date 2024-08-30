@@ -1,15 +1,22 @@
 package com.prac.practice.Controller;
 
 
+import com.prac.practice.DTO.Errordto;
 import com.prac.practice.DTO.createproductrequestdto;
 import com.prac.practice.DTO.productresponsedto;
+import com.prac.practice.Exception.Invalindproductid;
+import com.prac.practice.Exception.Productnotfound;
 import com.prac.practice.Model.products;
 import com.prac.practice.Service.Productservi;
 import com.prac.practice.builder.productmapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 //import static com.prac.practice.builder.productmapper.convertproductresponsedto;
 
@@ -26,9 +33,15 @@ public class productcontroller {
 
 
     @GetMapping("/product/{id}")
-    public productresponsedto getproductbyid(@PathVariable("id") int id){
+    public productresponsedto getproductbyid(@PathVariable("id") Integer id) throws Invalindproductid,Productnotfound {
+        if(id == null){
+            throw new Invalindproductid();
+        }
 
        products pr =  obj.getproductbyid(id);
+        if(pr == null){
+            throw new Productnotfound();
+        }
        productresponsedto  response =  mapper.convertproductresponsedto(pr);
        return response;
     }
@@ -83,5 +96,6 @@ public class productcontroller {
         }
         return response;
     }
+
 }
 
