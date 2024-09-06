@@ -1,23 +1,25 @@
 package com.prac.practice.Model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
-public class Category extends BaseModel  {
+public class Product extends BaseModel implements Serializable {
 
     private String tittle;
+    private String description;
+    private String Image;
+    private double price;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.PERSIST)
-    List<Product> products;
+    @ManyToOne
+    private Category category;
+
 }

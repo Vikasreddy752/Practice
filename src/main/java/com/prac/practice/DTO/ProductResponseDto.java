@@ -1,16 +1,15 @@
-package com.prac.practice.Model;
+package com.prac.practice.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class products {
+public class ProductResponseDto {
     private int id;
-    private String tittle;
+    private String title;
     private String description;
     private String Image;
-    private String price;
+    private double price;
     private String category;
-
 }
